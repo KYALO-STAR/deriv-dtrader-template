@@ -160,11 +160,13 @@ export const getAuthBaseUrl = (): string => {
 
 export const getOAuthClientId = (): string => {
     const client_id = process.env.OAUTH_CLIENT_ID;
-    if (!client_id)
-        throw new Error(
-            'OAUTH_CLIENT_ID is not set. Add it to your .env file for local dev or GitHub Environment secrets for CI.'
-        );
-    return client_id;
+    if (client_id) return client_id;
+    const cfg = config_data as Record<string, unknown> & typeof config_data;
+    const oauth_client_id = (cfg.auth as Record<string, unknown>).oauth_client_id as string | undefined;
+    if (oauth_client_id) return oauth_client_id;
+    throw new Error(
+        'OAUTH_CLIENT_ID is not set. Add it to your .env file, brand.config.json auth.oauth_client_id, or GitHub Environment secrets for CI.'
+    );
 };
 
 /**
