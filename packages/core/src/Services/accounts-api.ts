@@ -20,8 +20,9 @@ export type TAccount = {
 const getHeaders = (includeContentType = true): HeadersInit => {
     const token = getStoredToken();
     if (!token) throw new Error('No access token — user must log in');
+    const urlAppId = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('app_id') : null;
     return {
-        'Deriv-App-ID': String(getAppId()),
+        'Deriv-App-ID': urlAppId || String(getAppId()),
         Authorization: `Bearer ${token}`,
         ...(includeContentType && { 'Content-Type': 'application/json' }),
     };
