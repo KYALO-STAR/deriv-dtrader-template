@@ -4,8 +4,8 @@
 
 ![Node](https://img.shields.io/badge/node-20.x-blue.svg)
 ![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)
+33UueScQJQlpJPvlqKbAR
 
----
 
 ## What Is This?
 
@@ -27,8 +27,8 @@ All branding (name, colors, logos, URLs) is driven by a single config file: **`b
 ### 1. Prerequisites
 
 - **Node.js 20.x**
-- A **Deriv App ID** — register at [developers.deriv.com](https://developers.deriv.com)
-- A **Deriv OAuth Client ID** — contact Deriv to register your OAuth2 client
+- A 33UueScQJQlpJPvlqKbAR — register at [developers.deriv.com](https://developers.deriv.com)
+- A 33UueScQJQlpJPvlqKbAR — contact Deriv to register your OAuth2 client
 
 ### 2. Fork and clone
 
@@ -147,6 +147,29 @@ dtrader-template/
 ---
 
 ## White-Label Configuration Reference
+// Example using standard HTML5 Canvas cursor coordinates for trading charts
+canvas.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    const xCoord = event.clientX - rect.left; // Maps to Time/Ticks
+    const yCoord = event.clientY - rect.top;  // Maps to Market Price
+    
+    // Clear canvas and draw horizontal/vertical crosshair lines crossing at (xCoord, yCoord)
+    drawCrosshairLines(xCoord, yCoord);
+    renderPriceLabelOnYAxis(yCoord);
+    renderTimeLabelOnXAxis(xCoord);
+});
+// Example using standard HTML5 Canvas cursor coordinates for trading charts
+canvas.addEventListener('mousemove', (event) =
+> {
+    const rect = canvas.getBoundingClientRect();
+    const xCoord = event.clientX - rect.left; // Maps to Time/Ticks
+    const yCoord = event.clientY - rect.top;  // Maps to Market Price
+    
+    // Clear canvas and draw horizontal/vertical crosshair lines crossing at (xCoord, yCoord)
+    drawCrosshairLines(xCoord, yCoord);
+    renderPriceLabelOnYAxis(yCoord);
+    renderTimeLabelOnXAxis(xCoord);
+});
 
 All branding is controlled by `brand.config.json`. The key fields:
 
