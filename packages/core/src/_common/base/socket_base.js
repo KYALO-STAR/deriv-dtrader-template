@@ -354,7 +354,20 @@ const BinarySocketBase = (() => {
             dry_run,
         });
 
-    const activeSymbols = (mode = 'brief') => deriv_api.activeSymbols(mode);
+    const activeSymbols = async (mode = 'brief') => {
+        // Embedded mode (token in URL) skips the public socket and opens the OTP
+        // socket asynchronously — deriv_api may not exist yet when TradeStore
+        // loads active symbols. Wait for it (bounded) so we don't crash.
+        let attempts = 0;
+        while (!deriv_api && attempts < 100) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            attempts += 1;
+        }
+        if (!deriv_api) {
+            return { error: { code: 'SocketNotReady', message: 'Socket not ready' } };
+        }
+        return deriv_api.activeSymbols(mode);
+    };
 
     const transferBetweenAccounts = (account_from, account_to, currency, amount) =>
         deriv_api.send({
