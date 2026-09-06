@@ -9,8 +9,6 @@ import { AccountActions } from 'App/Components/Layout/Header';
 import { AccountsInfoLoader } from 'App/Components/Layout/Header/Components/Preloader';
 import NewVersionNotification from 'App/Containers/new-version-notification';
 
-const isAccountHidden = new URLSearchParams(window.location.search).has('hideAccount');
-
 const HeaderLegacy = observer(() => {
     const { client, ui, notifications } = useStore();
     const { is_logged_in, is_logging_in } = client;
@@ -42,14 +40,12 @@ const HeaderLegacy = observer(() => {
                         <DerivProductBrandLightDerivTraderLogoIcon height='32px' width='32px' />
                     </div>
                 )}
-                {!isAccountHidden && (
-                    is_logging_in ? (
-                        <div id='dt_core_header_acc-info-preloader' className='acc-info__preloader'>
-                            <AccountsInfoLoader is_logged_in={is_logged_in} />
-                        </div>
-                    ) : (
-                        <AccountActions />
-                    )
+                {is_logging_in ? (
+                    <div id='dt_core_header_acc-info-preloader' className='acc-info__preloader'>
+                        <AccountsInfoLoader is_logged_in={is_logged_in} />
+                    </div>
+                ) : (
+                    <AccountActions />
                 )}
             </div>
             <NewVersionNotification onUpdate={addUpdateNotification} />

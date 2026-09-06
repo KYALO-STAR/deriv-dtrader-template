@@ -354,20 +354,7 @@ const BinarySocketBase = (() => {
             dry_run,
         });
 
-    const activeSymbols = async (mode = 'brief') => {
-        // Embedded mode (token in URL) skips the public socket and opens the OTP
-        // socket asynchronously — deriv_api may not exist yet when TradeStore
-        // loads active symbols. Wait for it (bounded) so we don't crash.
-        let attempts = 0;
-        while (!deriv_api && attempts < 100) {
-            await new Promise(resolve => setTimeout(resolve, 100));
-            attempts += 1;
-        }
-        if (!deriv_api) {
-            return { error: { code: 'SocketNotReady', message: 'Socket not ready' } };
-        }
-        return deriv_api.activeSymbols(mode);
-    };
+    const activeSymbols = (mode = 'brief') => deriv_api.activeSymbols(mode);
 
     const transferBetweenAccounts = (account_from, account_to, currency, amount) =>
         deriv_api.send({
@@ -484,18 +471,7 @@ const BinarySocketBase = (() => {
             delete config.onDisconnect;
         },
         cache: delegateToObject({}, () => deriv_api.cache),
-        // Trader expects WS.storage to behave like a WS-with-cache proxy (official
-        // deriv-app semantics): it must expose request methods in addition to the
-        // SocketCache accessors (get/set/has/...). base_obj wins over the cache.
-        storage: delegateToObject(
-            {
-                send: req => deriv_api.send(req),
-                contractsFor: symbol => deriv_api.send({ contracts_for: symbol }),
-                proposalOpenContract: ({ contract_id }) =>
-                    deriv_api.send({ proposal_open_contract: 1, contract_id }),
-            },
-            () => deriv_api.storage
-        ),
+        storage: delegateToObject({}, () => deriv_api.storage),
         blockRequest,
         buy,
         buyAndSubscribe,
@@ -505,14 +481,6 @@ const BinarySocketBase = (() => {
         cryptoConfig,
         contractUpdate,
         contractUpdateHistory,
-        contractsFor: symbol => deriv_api.send({ contracts_for: symbol }),
-        time: () => deriv_api.send({ time: 1 }),
-        tradingTimes: date => deriv_api.send({ trading_times: date }),
-        forget: id => deriv_api.send({ forget: id }),
-        forgetAll: type => deriv_api.send({ forget_all: type }),
-        portfolio: () => deriv_api.send({ portfolio: 1 }),
-        send: req => deriv_api.send(req),
-        logout: () => deriv_api.send({ logout: 1 }),
         getFinancialAssessment,
         setFinancialAndTradingAssessment,
         mt5NewAccount,

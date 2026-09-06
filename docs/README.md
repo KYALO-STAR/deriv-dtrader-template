@@ -2,7 +2,7 @@
 
 > A white-label derivatives trading platform template. Fork it, configure your brand, and deploy — **no source code changes required**.
 
-![Node](https://img.shields.io/badge/node-20.x-blue.svg)
+![Node](https://img.shields.io/badge/node-22%20%7C%2024-blue.svg)
 ![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)
 
 ---
@@ -26,7 +26,7 @@ All branding (name, colors, logos, URLs) is driven by a single config file: **`b
 
 ### 1. Prerequisites
 
-- **Node.js 20.x**
+- **Node.js 24.x recommended**; Node.js 22.14–22.x is also supported
 - A **Deriv App ID** — register at [developers.deriv.com](https://developers.deriv.com)
 - A **Deriv OAuth Client ID** — contact Deriv to register your OAuth2 client
 

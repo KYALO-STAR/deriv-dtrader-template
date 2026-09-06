@@ -9,7 +9,7 @@ import { StoreProvider } from '@deriv/stores';
 import { BreakpointProvider } from '@deriv-com/quill-ui';
 import { getInitialLanguage, initializeI18n, TranslationProvider } from '@deriv-com/translations';
 
-import { clearTokens, exchangeCodeForToken, storeTokens, setEmbeddedMode } from 'Services/oauth';
+import { clearTokens, exchangeCodeForToken } from 'Services/oauth';
 import WS from 'Services/ws-methods';
 
 import { FORM_ERROR_MESSAGES } from '../Constants/form-error-messages';
@@ -31,29 +31,19 @@ const App = ({ root_store }) => {
     const language = preferred_language ?? getInitialLanguage();
     const { isBridgeAvailable, sendBridgeEvent } = useMobileBridge();
 
-    // Handle embedded token injection — parent frames can pass ?token=xxx to
-    // bypass the OAuth PKCE flow entirely. Token is stored in sessionStorage
-    // and picked up by client-store.js init() on the same boot cycle.
     // Handle OAuth2 callback — the auth server redirects back to / with ?code=...&state=...
     // No separate /callback route needed; we handle it inline here on every mount.
     React.useEffect(() => {
         const params = new URLSearchParams(window.location.search);
-        const token = params.get('token');
         const code = params.get('code');
         const state = params.get('state');
 
-        const cleanURL = (...keys) => {
+        const cleanURL = () => {
             const url = new URL(window.location.href);
-            keys.forEach(k => url.searchParams.delete(k));
+            url.searchParams.delete('code');
+            url.searchParams.delete('state');
             window.history.replaceState({}, '', url.toString());
         };
-
-        if (token) {
-            storeTokens(token);
-            setEmbeddedMode();
-            cleanURL('token');
-            return;
-        }
 
         if (!code) return; // Normal load — not an OAuth callback
 

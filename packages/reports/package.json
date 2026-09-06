@@ -11,7 +11,7 @@
         "test:eslint": "eslint \"./src/**/*.?(js|jsx|ts|tsx)\""
     },
     "engines": {
-        "node": "20.x"
+        "node": "^22.14.0 || ^24.10.0"
     },
     "repository": {
         "type": "git",
@@ -86,7 +86,7 @@
         "formik": "^2.1.4",
         "framer-motion": "^6.5.1",
         "i18next": "^22.4.6",
-        "js-cookie": "^2.2.1",
+        "js-cookie": "^3.0.8",
         "lodash.debounce": "^4.0.8",
         "lodash.throttle": "^4.1.1",
         "mobx": "^6.6.1",

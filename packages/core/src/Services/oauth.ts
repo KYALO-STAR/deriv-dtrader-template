@@ -152,14 +152,6 @@ export const clearTokens = (): void => {
     sessionStorage.removeItem(AUTH_INFO_KEY);
 };
 
-export const setEmbeddedMode = (): void => {
-    sessionStorage.setItem('is_embedded', 'true');
-};
-
-export const isEmbeddedMode = (): boolean => {
-    return sessionStorage.getItem('is_embedded') === 'true';
-};
-
 // ---------------------------------------------------------------------------
 // Token refresh
 // ---------------------------------------------------------------------------

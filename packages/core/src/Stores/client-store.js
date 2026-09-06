@@ -17,7 +17,7 @@ import { getInitialLanguage, localize } from '@deriv-com/translations';
 
 import { requestRestLogout, WS } from 'Services';
 import { fetchAccounts, fetchOTP } from '../Services/accounts-api';
-import { clearTokens, generateOAuthURL, getStoredToken, isEmbeddedMode } from '../Services/oauth';
+import { clearTokens, generateOAuthURL, getStoredToken } from '../Services/oauth';
 
 import { getClientAccountType } from './Helpers/client';
 import { buildCurrenciesList } from './Modules/Trading/Helpers/currency';
@@ -441,11 +441,6 @@ export default class ClientStore extends BaseStore {
 
         this.tab_visibility_handler = () => {
             if (document.visibilityState === 'visible' && !getStoredToken() && this.is_logged_in) {
-                if (isEmbeddedMode()) {
-                    // Embedded mode: parent handles re-auth. Just log out silently.
-                    this.logout();
-                    return;
-                }
                 // Token expired while tab was hidden — redirect to fresh OAuth login
                 generateOAuthURL().then(url => window.location.replace(url));
             }

@@ -7,9 +7,12 @@ permissions:
   contents: read
 jobs:
   build:
-    name: Build Project
+    name: Build Project (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x]
     permissions:
       contents: read
       actions: write
@@ -19,6 +22,8 @@ jobs:
       uses: actions/checkout@v4
     - name: Setup Node
       uses: "./.github/actions/setup_node"
+      with:
+        node-version: ${{ matrix.node-version }}
     - name: Install dependencies
       uses: "./.github/actions/npm_install_from_cache"
     - name: Build

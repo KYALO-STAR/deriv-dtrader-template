@@ -79,11 +79,7 @@
             }
         </style>
         <script type="text/javascript">
-            // Skip anti-clickjack when embedded via ?token= (parent passes token)
-            if (new URLSearchParams(window.location.search).has('token')) {
-                var antiClickjack = document.getElementById('antiClickjack');
-                if (antiClickjack) antiClickjack.parentNode.removeChild(antiClickjack);
-            } else if (self === top) {
+            if (self === top) {
                 var antiClickjack = document.getElementById('antiClickjack');
                 antiClickjack.parentNode.removeChild(antiClickjack);
             } else {

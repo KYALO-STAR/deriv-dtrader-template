@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "main": "src/index.ts",
     "engines": {
-        "node": "20.x"
+        "node": "^22.14.0 || ^24.10.0"
     },
     "dependencies": {
         "bowser": "^2.9.0",
