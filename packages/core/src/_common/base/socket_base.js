@@ -507,7 +507,7 @@ const BinarySocketBase = (() => {
         contractUpdateHistory,
         contractsFor: symbol => deriv_api.send({ contracts_for: symbol }),
         time: () => deriv_api.send({ time: 1 }),
-        tradingTimes: req => deriv_api.send({ trading_times: 1, ...req }),
+        tradingTimes: date => deriv_api.send({ trading_times: date }),
         forget: id => deriv_api.send({ forget: id }),
         forgetAll: type => deriv_api.send({ forget_all: type }),
         portfolio: () => deriv_api.send({ portfolio: 1 }),
