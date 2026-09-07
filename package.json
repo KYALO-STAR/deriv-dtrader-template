@@ -1,12 +1,11 @@
 {
     "name": "root",
     "private": true,
-    "packageManager": "npm@11.6.2",
     "workspaces": [
         "packages/*"
     ],
     "engines": {
-        "node": "^22.14.0 || ^24.10.0"
+        "node": "20.x"
     },
     "overrides": {
         "eslint": "^8.57.1",
@@ -22,20 +21,9 @@
         "lodash-es": "4.18.1",
         "picomatch": "4.0.4",
         "brace-expansion": "1.1.13",
-        "@xmldom/xmldom": "0.8.13",
-        "yaml": "2.9.0",
+        "@xmldom/xmldom": "0.8.12",
+        "yaml": "2.7.1",
         "serialize-javascript": "7.0.5",
-        "qs": "6.15.2",
-        "uuid": "12.0.1",
-        "fast-uri": "3.1.2",
-        "ip-address": "10.1.1",
-        "follow-redirects": "1.16.0",
-        "@babel/plugin-transform-modules-systemjs": "7.29.4",
-        "ejs": {
-            "minimatch": {
-                "brace-expansion": "5.0.6"
-            }
-        },
         "express": {
             "path-to-regexp": "0.1.13"
         },
@@ -58,14 +46,14 @@
             }
         },
         "lint-staged": {
-            "yaml": "2.9.0",
+            "yaml": "2.7.1",
             "cosmiconfig": {
-                "yaml": "2.9.0"
+                "yaml": "2.7.1"
             }
         },
         "postcss-loader": {
             "cosmiconfig": {
-                "yaml": "2.9.0"
+                "yaml": "2.7.1"
             }
         },
         "workbox-build": {
@@ -75,7 +63,8 @@
         },
         "formik": {
             "lodash-es": "4.18.1"
-        }
+        },
+        "webpack": "5.105.2"
     },
     "devDependencies": {
         "@babel/core": "^7.25.2",
@@ -103,7 +92,7 @@
         "@testing-library/react-hooks": "^7.0.2",
         "@testing-library/user-event": "^14.5.2",
         "@types/jest": "^29.5.14",
-        "@types/node": "^22.14.0",
+        "@types/node": "^20.0.0",
         "@types/react": "^18.0.7",
         "@types/react-dom": "^18.0.0",
         "@types/react-router-dom": "^5.1.6",
@@ -117,7 +106,7 @@
         "jest-extended": "^4.0.2",
         "lint-staged": "^11.2.6",
         "node-abort-controller": "^3.1.1",
-        "postcss": "^8.5.10",
+        "postcss": "^8.4.24",
         "prettier": "^3.0.0",
         "stylelint": "^16.23.1",
         "stylelint-formatter-pretty": "^2.1.1",
@@ -127,7 +116,7 @@
         "ts-jest": "^29.2.5"
     },
     "scripts": {
-        "serve": "f () { npm exec --workspace=@deriv/${1:-'*'} -- npm run serve $npm_config_open;}; f",
+        "serve": "npm run serve --workspace=@deriv/core",
         "bootstrap": "npm ci --strict-peer-deps --verbose",
         "bootstrap:ci": "npm ci --strict-peer-deps --verbose",
         "bootstrap:dev": "npm install --strict-peer-deps --verbose",
