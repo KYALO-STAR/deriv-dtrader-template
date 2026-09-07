@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { useMobileBridge } from '@deriv/api';
 import { Button, Flyout, Text } from '@deriv/components';
+import { isEmbeddedMode } from '@deriv/core/src/Services/oauth';
 import {
     LabelPairedLifeRingSmRegularIcon,
     LegacyHomeNewIcon,
@@ -282,7 +283,7 @@ const Sidebar = observer(() => {
                     <div className='sidebar__nav-utility'>
                         <div className='sidebar__separator' />
                         {utilityItems.map(item => {
-                            const shouldShow = item.id === 'account' ? is_logged_in : true;
+                            const shouldShow = item.id === 'account' ? is_logged_in && !isEmbeddedMode() : true;
 
                             if (!shouldShow) return null;
 

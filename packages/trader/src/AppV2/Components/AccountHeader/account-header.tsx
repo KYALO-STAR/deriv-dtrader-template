@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useDerivativesAccount, useMobileBridge } from '@deriv/api';
 import { Button, Skeleton, Text } from '@deriv/components';
 import AccountSwitcher from '@deriv/core/src/App/Components/Layout/Header/account-switcher';
+import { isEmbeddedMode } from '@deriv/core/src/Services/oauth';
 import { LegacyChevronDown1pxIcon } from '@deriv/quill-icons';
 import { addComma, getDepositUrl, getCurrencyDisplayCode, getSignupUrl, redirectToLogin } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
@@ -211,6 +212,10 @@ const AccountHeader = observer(
         }
 
         const shouldShowLoader = isLoading || is_switching_account;
+
+        // Embedded mode: the parent app is the account display/switcher, so hide
+        // balance, account type, switcher, and deposit button inside the iframe.
+        if (isEmbeddedMode()) return null;
 
         return (
             <React.Fragment>

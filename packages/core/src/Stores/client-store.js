@@ -332,8 +332,13 @@ export default class ClientStore extends BaseStore {
             // socket-general.js calls authorizeAccount() which completes the login.
             try {
                 const accounts = await fetchAccounts();
+                // Embedded mode: the parent frame passes ?account=<loginid> so the
+                // iframe trades on the same account the parent has selected.
+                const requested_account = search_params?.get('account');
                 const active_account =
-                    accounts.find(a => a.account_id === sessionStorage.getItem('active_loginid')) ||
+                    accounts.find(
+                        a => a.account_id === (requested_account || sessionStorage.getItem('active_loginid'))
+                    ) ||
                     accounts.find(a => a.account_type === 'demo') ||
                     accounts[0];
 
