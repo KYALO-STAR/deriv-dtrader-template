@@ -9,6 +9,7 @@ import { useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 
 import { LoginButton } from './login-button';
+import { isEmbeddedMode } from 'Services/oauth';
 
 import 'Sass/app/_common/components/account-switcher.scss';
 
@@ -40,6 +41,10 @@ const AccountActionsComponent = observer(() => {
             setIsSwitchingAccount(false);
         }
     }, [isLoading, accounts, error, setIsSwitchingAccount]);
+
+    // Embedded mode: the parent app is the account display/switcher, so hide the
+    // classic account bar (balance, loginid, switcher, deposit) inside the iframe.
+    if (isEmbeddedMode()) return null;
 
     // Determine account types available
     const hasOnlyDemoAccounts = accounts.length > 0 && accounts.every(acc => acc.account_type === 'demo');
