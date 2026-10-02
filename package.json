@@ -5,7 +5,7 @@
         "packages/*"
     ],
     "engines": {
-        "node": "20.x"
+        "node": "24.x"
     },
     "overrides": {
         "eslint": "^8.57.1",
@@ -92,7 +92,7 @@
         "@testing-library/react-hooks": "^7.0.2",
         "@testing-library/user-event": "^14.5.2",
         "@types/jest": "^29.5.14",
-        "@types/node": "^20.0.0",
+        "@types/node": "^24.0.0",
         "@types/react": "^18.0.7",
         "@types/react-dom": "^18.0.0",
         "@types/react-router-dom": "^5.1.6",
